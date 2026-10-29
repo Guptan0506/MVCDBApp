@@ -1,4 +1,8 @@
+using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
+var connectionString = builder.Configuration.GetConnectionString("MVCDBAppContext") ?? throw new InvalidOperationException("Connection string 'MVCDBAppContext' not found.");
+
+builder.Services.AddDbContext<MVCDBAppContext>(options => options.UseSqlServer(connectionString));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
